@@ -78,6 +78,9 @@ WITH ( FORMAT = 'CSV', FIRSTROW = 2, FIELDTERMINATOR = ',');
 BULK INSERT m_employee
 FROM 'C:\bulkinsert_samples\csv\t_employee_data_toomany.csv'
 WITH ( FORMAT = 'CSV', FIRSTROW = 2, FIELDTERMINATOR = ',');
+BULK INSERT m_employee
+FROM 'C:\bulkinsert_samples\csv\t_employee_newline_lf_2rows_noheader.csv'
+WITH ( FORMAT = 'CSV', FIELDTERMINATOR = ',');
 
 -- NG: "(column_name) の一括読み込みデータ変換エラー (型の不一致または指定されたコードページでは無効な文字)。"
 BULK INSERT m_employee
