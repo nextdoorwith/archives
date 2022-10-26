@@ -52,10 +52,11 @@ $conn.open()
 
 # テーブル一覧の取得
 # https://learn.microsoft.com/ja-jp/sql/relational-databases/system-information-schema-views/tables-transact-sql?view=sql-server-ver15
-$cmdTableList = New-Object System.Data.Odbc.OdbcCommand
-$cmdTableList.Connection = $conn
-$cmdTableList.CommandText = "select TABLE_NAME from INFORMATION_SCHEMA.TABLES order by TABLE_NAME"
-$tableListReader = $cmdTableList.ExecuteReader()
+$tableListSql = "select TABLE_NAME from INFORMATION_SCHEMA.TABLES order by TABLE_NAME"
+$tableListCmd = New-Object System.Data.Odbc.OdbcCommand
+$tableListCmd.Connection = $conn
+$tableListCmd.CommandText = $tableListSql
+$tableListReader = $tableListCmd.ExecuteReader()
 $tableList = @()
 while($tableListReader.Read()) {
   $tableList += $tableListReader["TABLE_NAME"].ToString()
@@ -93,10 +94,10 @@ foreach($table in $tableList) {
         "from INFORMATION_SCHEMA.COLUMNS " + `
         "where TABLE_NAME = '$table' " + `
         "order by ORDINAL_POSITION"
-    $cmdColList = New-Object System.Data.Odbc.OdbcCommand
-    $cmdColList.Connection = $conn
-    $cmdColList.CommandText = $colListSql
-    $colListReader = $cmdColList.ExecuteReader()
+    $colListCmd = New-Object System.Data.Odbc.OdbcCommand
+    $colListCmd.Connection = $conn
+    $colListCmd.CommandText = $colListSql
+    $colListReader = $colListCmd.ExecuteReader()
 
     # カラム情報に基づいてダミー値を設定
     $cols = @(); $vals = @()
@@ -134,9 +135,10 @@ foreach($table in $tableList) {
     $colListReader.Dispose();
 
     # INSERT文を組み立ててファイルに出力
+    $colsStr = $cols -join ", "; $valsStr = $vals -join ", "
     $insert = `
-        "insert into [$table] ($($cols -join ", ")) VALUES `r`n" + `
-        "    ($($vals -join ", "));"
+        "insert into [$table] ($colsStr) VALUES `r`n" + `
+        "    ($valsStr);"
     Write-Result($insert)
     $outputCount++
 }
