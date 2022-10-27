@@ -1,5 +1,4 @@
 ﻿-- truncate table [m_dbtypes];
--- truncate table [m_dbtypes_other];
 -- truncate table [m_employee];
 
 insert into [m_dbtypes] ([n1], [n2], [n3], [n4], [n5], [n6], [n7], [n8], [n9], [f1], [f2], [d1], [d2], [d3], [d4], [d5], [d6], [s1], [s2], [s3], [u1], [u2], [u3], [b1], [b2], [o4]) VALUES 

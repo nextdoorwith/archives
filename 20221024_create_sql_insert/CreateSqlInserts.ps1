@@ -1,10 +1,6 @@
 # 
 # CreateSqlInserts.ps1
 #
-# - DBのテーブル・カラム情報に基づいてインサート可能なSQL文を生成する。
-# - 多様なDBでの使用を想定し、接続情報はODBCデータソースから取得する前提
-# - ANSI/ISO準拠のカタログであるINFORMATION_SCHEMAからテーブル・カラム情報を取得
-#
 $ErrorActionPreference = "Stop"
 
 # SQL文の出力先ファイル名
@@ -52,14 +48,18 @@ $conn.open()
 
 # テーブル一覧の取得
 # https://learn.microsoft.com/ja-jp/sql/relational-databases/system-information-schema-views/tables-transact-sql?view=sql-server-ver15
-$tableListSql = "select TABLE_NAME from INFORMATION_SCHEMA.TABLES order by TABLE_NAME"
+$tableListSql = 
+    "select TABLE_NAME from INFORMATION_SCHEMA.TABLES order by TABLE_NAME"
 $tableListCmd = New-Object System.Data.Odbc.OdbcCommand
 $tableListCmd.Connection = $conn
 $tableListCmd.CommandText = $tableListSql
 $tableListReader = $tableListCmd.ExecuteReader()
 $tableList = @()
-while($tableListReader.Read()) {
-  $tableList += $tableListReader["TABLE_NAME"].ToString()
+while($tableListReader.Read()){
+    $tableName = $tableListReader["TABLE_NAME"].ToString()
+    if( ! $skipTables.Contains($tableName) ){
+        $tableList += $tableName
+    }
 }
 $tableListReader.Dispose()
 if( $tableList.Count -le 0 ){
@@ -71,26 +71,23 @@ if( $tableList.Count -le 0 ){
 New-Item $filename -Force | Out-Null
 $fullpath = Resolve-Path $filename
 
+# 実行条件をコンソールに出力
+Write-Host "output file   : $fullpath"
+Write-Host "target tables : $($tableList.Length)"
+
 # truncate文の出力
 $tableList | foreach { Write-Result("-- truncate table [$_];") }
 
 # テーブル毎にカラム一覧を処理
-Write-Host "output file  : $fullpath"
-Write-Host "total tables : $($tableList.Length)"
 Write-Result("")
-$outputCount = 0
 foreach($table in $tableList) {
-    
-    # 対象外はスキップ
-    if( $skipTables.Contains($table) )
-    {
-        continue;
-    }
 
     # カラム一覧の取得
     # https://learn.microsoft.com/ja-jp/sql/relational-databases/system-information-schema-views/columns-transact-sql?view=sql-server-ver15
     $colListSql =
-        "select *, COLUMNPROPERTY(object_id(TABLE_SCHEMA+'.'+TABLE_NAME), COLUMN_NAME, 'IsIdentity') as _IS_IDENTITY " + `
+        "select *, " + `
+            "COLUMNPROPERTY(object_id(TABLE_SCHEMA+'.'+TABLE_NAME), " + `
+                "COLUMN_NAME, 'IsIdentity') as _IS_IDENTITY " + `
         "from INFORMATION_SCHEMA.COLUMNS " + `
         "where TABLE_NAME = '$table' " + `
         "order by ORDINAL_POSITION"
@@ -140,7 +137,6 @@ foreach($table in $tableList) {
         "insert into [$table] ($colsStr) VALUES `r`n" + `
         "    ($valsStr);"
     Write-Result($insert)
-    $outputCount++
 }
 $conn.Dispose()
 
@@ -148,4 +144,4 @@ $conn.Dispose()
 #Write-Result("")
 #$tableList | foreach { Write-Result("-- select count(1) from [$_];") }
 
-Write-Host "generated sql: $outputCount"
+Write-Host "completed"
