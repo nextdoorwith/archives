@@ -16,24 +16,24 @@ $skipTables = @(
 )
 # カラム名に基づいて決定する値
 $valueByColumn = @{
-    "created_by" = "'system'"; "created_on" = "getdate()";
+    "created_by" = "'system'"; "created_on" = "getdate()"
     "updated_by" = "'system'"; "updated_on" = "getdate()"
 }
 # カラム型に基づいて決定する値
 # - 値から型を推測できるよう各型で固有の値を指定
 # - SQL Server 2019を想定した型一覧
 $valueByType = @{
-    "int" = "1"; "bit" = "2"; "tinyint" = "3"; "smallint" = "4"; "bigint" = "5";
-    "smallmoney" = "6"; "money" = "7";
-     "numeric" = "8"; "decimal" = "9";
-    "float" = "0.1"; "real" = "0.2";
-    "date" = "'2001-01-01'"; "datetime" = "'2002-02-02'"; "datetime2" = "'2003-03-03'";
+    "int" = "1"; "bit" = "2"; "tinyint" = "3"; "smallint" = "4"; "bigint" = "5"
+    "smallmoney" = "6"; "money" = "7"
+     "numeric" = "8"; "decimal" = "9"
+    "float" = "0.1"; "real" = "0.2"
+    "date" = "'2001-01-01'"; "datetime" = "'2002-02-02'"; "datetime2" = "'2003-03-03'"
     "datetimeoffset" = "'2004-04-04'"; "smalldatetime" = "'2005-05-05'";
-    "time"="'2006-06-06'";
-    "char" = "'c'"; "varchar" = "'v'"; "text" = "'t'";
-    "nchar" = "N'c'"; "nvarchar" = "N'v'"; "ntext" = "N't'";
-    "binary" = "0xbb"; "varbinary" = "0xbbbb";
-    "uniqueidentifier" = "newid()"; 
+    "time"="'2006-06-06'"
+    "char" = "'c'"; "varchar" = "'v'"; "text" = "'t'"
+    "nchar" = "N'c'"; "nvarchar" = "N'v'"; "ntext" = "N't'"
+    "binary" = "0xbb"; "varbinary" = "0xbbbb"
+    "uniqueidentifier" = "newid()"
 }
 
 # ファイル出力関数の宣言
