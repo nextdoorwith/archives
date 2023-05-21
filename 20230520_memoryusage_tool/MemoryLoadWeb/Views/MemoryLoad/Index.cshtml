@@ -1,0 +1,22 @@
+﻿@using MemoryLoadWeb.Controllers;
+@{
+    ViewData["Title"] = "Home Page";
+    var dataSize = MemoryLoadController.DataUnitSize / (1024 * 1024);
+}
+
+<ul>
+    <li>
+        <a asp-action="AddGlobalLoad">静的変数にバイト列追加(@dataSize [MB])</a>
+    </li>
+    <li>
+        <a asp-action="AddLocalLoad">動的変数にバイト列追加(@dataSize [MB])</a>
+    </li>
+    <li>
+        <a asp-action="RaiseOutOfMemory">OutOfMemoryExceptionをスロー</a>
+    </li>
+    <li>
+        <a asp-action="InitHugeData">大量DBデータ準備</a> |
+        <a asp-action="SearchHugeDataAndWait">大量データ検索・保持</a>
+    </li>
+</ul>
+

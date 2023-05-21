@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33712.159
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryLoadWeb", "MemoryLoadWeb.csproj", "{3211A537-3C6C-4F07-99E1-6FB73C41F278}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3211A537-3C6C-4F07-99E1-6FB73C41F278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3211A537-3C6C-4F07-99E1-6FB73C41F278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3211A537-3C6C-4F07-99E1-6FB73C41F278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3211A537-3C6C-4F07-99E1-6FB73C41F278}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF9B0DFB-B789-4794-9FA8-62A4CF58551E}
+	EndGlobalSection
+EndGlobal
