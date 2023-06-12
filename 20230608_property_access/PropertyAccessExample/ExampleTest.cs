@@ -10,7 +10,7 @@ namespace PropertyAccessExample
         /// <summary>
         /// 各方式の測定回数
         /// </summary>
-        private const int TestCount = 3;
+        private const int TestCount = 5;
 
         private ITestOutputHelper _output;
 
@@ -32,6 +32,7 @@ namespace PropertyAccessExample
             var testType = new (string, Func<IEnumerable<TestEntity>, IEnumerable<string>>)[]
             {
                 ("switch", e => GetValuesBySwitch(list)),
+                ("ref", e => GetValuesByReflection(list)),
                 ("temp dic", e => GetValuesByTempDic(list)),
                 ("ref dic", e => GetValuesByReflectionDic(list)),
                 ("lamda dic", e => GetValuesByLambdaDic(list)),
@@ -39,6 +40,7 @@ namespace PropertyAccessExample
             };
 
             // 各方式を複数回実行して処理時間を集計
+            // (実行順による偏りを減らすために、それぞれN回ではなく、全種類×N回ループ)
             var sum = new long[testType.Length];
             for (var i = 0; i < TestCount; i++)
             {
@@ -61,7 +63,7 @@ namespace PropertyAccessExample
             for (var i = 0; i < testType.Length; i++)
             {
                 var typeName = testType[i].Item1;
-                _output.WriteLine("({0,-10}): {1,6:#,#} [ms]", typeName, sum[i] / testType.Length);
+                _output.WriteLine("({0,-10}): {1,6:#,#} [ms]", typeName, sum[i] / TestCount);
             }
         }
 
@@ -121,6 +123,26 @@ namespace PropertyAccessExample
         // ==================================================
 
         /// <summary>
+        /// リフレクションを使用したプロパティ値の取得方式
+        /// </summary>
+        /// <param name="entityList"></param>
+        /// <returns></returns>
+        public static List<string> GetValuesByReflection(IEnumerable<TestEntity> entityList)
+        {
+            var entityType = typeof(TestEntity);
+            var list = new List<string>();
+            foreach (var entity in entityList)
+            {
+                var propInfo = entityType.GetProperty(entity.Selection);
+                var val = propInfo?.GetValue(entity)?.ToString() ?? "";
+                list.Add(val);
+            }
+            return list;
+        }
+
+        // ==================================================
+
+        /// <summary>
         /// Dictionaryを使用したプロパティ値の取得方式
         /// </summary>
         /// <param name="entityList"></param>
@@ -171,7 +193,7 @@ namespace PropertyAccessExample
         // ==================================================
 
         /// <summary>
-        /// リフレクションを使用したプロパティ値の取得方式
+        /// リフレクションDictionaryを使用したプロパティ値の取得方式
         /// </summary>
         /// <param name="entityList"></param>
         /// <returns></returns>
