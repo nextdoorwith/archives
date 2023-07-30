@@ -25,10 +25,14 @@ Function CalcColWidth([int]$Row, [int]$Col, [int]$ValueWidth) {
 Function ProcHeader([int[]]$Widths) { return $null }
 
 # 行出力の直前に出力する内容を定義
-Function ProcRowBefore([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) { return $null }
+Function ProcRowBefore([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) { 
+    return $null 
+}
 
 # 行出力する内容を定義
-Function ProcRow([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) { return $Values -join " " }
+Function ProcRow([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) { 
+    return $Values -join " " 
+}
 
 # 行出力の直後に出力する内容を定義
 Function ProcRowAfter([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) {

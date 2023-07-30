@@ -23,7 +23,9 @@ Function CalcColWidth([int]$Row, [int]$Col, [int]$ValueWidth) {
 
 Function ProcHeader([int[]]$Widths) { return $null }
 
-Function ProcRowBefore([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) { return $null }
+Function ProcRowBefore([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) { 
+    return $null 
+}
 
 Function ProcRow([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) {
     return $ROW_LEFT + ($Values -join $ROW_DIV) + $ROW_RIGHT

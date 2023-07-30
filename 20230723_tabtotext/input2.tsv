@@ -1,0 +1,3 @@
+名称	データベースID	照合順序
+master	1	SQL_Latin1_General_CP1_CI_AS
+tempdb	2	SQL_Latin1_General_CP1_CI_AS

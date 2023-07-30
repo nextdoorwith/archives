@@ -21,7 +21,7 @@ Function ProcMain([String]$InFile, [String]$OutFile) {
 
     # データの読み取り
     if ([string]::IsNullOrEmpty($InFile)) {
-        $InFile = "${PSScriptRoot}\input.tsv"
+        $InFile = ".\input.tsv"
     }
     $content = Get-Content $InFile -Encoding UTF8
 
