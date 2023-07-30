@@ -1,0 +1,7 @@
+name	database_id	collation_name
+master	1	SQL_Latin1_General_CP1_CI_AS
+tempdb	2	SQあいうえおかきくけこさしすせそ
+あmodel	3	SQL_Latin1_General_CP1_CI_AS
+msdb11111111111	4	SQL_Latin1_General_CP1_CI_AS
+AzureSQL	5	SQL_Latin1_General_CP1_CI_AS
+Test1	6	Japanese_CI_AS
