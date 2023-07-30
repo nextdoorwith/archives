@@ -1,7 +1,7 @@
-name	database_id	collation_name
+名称	データベースID	照合順序
 master	1	SQL_Latin1_General_CP1_CI_AS
-tempdb	2	SQあいうえおかきくけこさしすせそ
-あmodel	3	SQL_Latin1_General_CP1_CI_AS
-msdb11111111111	4	SQL_Latin1_General_CP1_CI_AS
-AzureSQL	5	SQL_Latin1_General_CP1_CI_AS
+tempdb	2	SQL_Latin1_General_CP1_CI_AS
 Test1	6	Japanese_CI_AS
+最大		1234567890１３５７９123456789012
+半角超過	8	1234567890１３５７９1234567890123
+全角超過	9	1３５７９１３５７９１３５７９１３

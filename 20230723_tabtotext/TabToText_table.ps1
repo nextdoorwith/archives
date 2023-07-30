@@ -23,17 +23,17 @@ Function CalcColWidth([int]$Row, [int]$Col, [int]$ValueWidth) {
 
 Function ProcHeader([int[]]$Widths) { return $null }
 
-Function ProcRowBefore([int]$Row, [int]$Col, [string[]]$Values) { return $null }
+Function ProcRowBefore([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) { return $null }
 
-Function ProcRow([int]$Row, [int]$Col, [string[]]$Values) {
+Function ProcRow([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) {
     return $ROW_LEFT + ($Values -join $ROW_DIV) + $ROW_RIGHT
 }
 
-Function ProcRowAfter([int]$Row, [int]$Col, [string[]]$Values) {
+Function ProcRowAfter([int]$Row, [int]$Col, [int[]]$Widths, [string[]]$Values) {
     if ( $Row -gt 0 ) { return $null }
     $sepvals = @()
-    foreach ($v in $Values) {
-        $sepvals += $SEP * $v.Length
+    foreach ($w in $Widths) {
+        $sepvals += $SEP * $w
     }
     return $SEP_LEFT + ($sepvals -join $SEP_DIV) + $SEP_RIGHT
 }

@@ -61,9 +61,9 @@ Function ProcMain([String]$InFile, [String]$OutFile) {
                 $outvals += Truncate -Value $val -Max $wid
             }
         }
-        $lines += ProcRowBefore -Row $row -Column $col -Values $outvals
-        $lines += ProcRow       -Row $row -Column $col -Values $outvals
-        $lines += ProcRowAfter  -Row $row -Column $col -Values $outvals
+        $lines += ProcRowBefore -Row $row -Column $col -Widths $widths -Values $outvals
+        $lines += ProcRow       -Row $row -Column $col -Widths $widths -Values $outvals
+        $lines += ProcRowAfter  -Row $row -Column $col -Widths $widths -Values $outvals
         $row++
     }
     $lines += ProcFooter -Widths $widths
