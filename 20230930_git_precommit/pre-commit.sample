@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# pre-commit.sample    特定キーワードを含む場合はコミット中止
+#
+# ・有効にする場合、ファイル名を"pre-commit"に変更し、プロジェクトの
+#   ".git/hooks"に配置してください。
+# ・個別プロジェクトに依存せず全てのプロジェクトで有効にしたい場合
+#   当該ファイルをプロジェクト外の任意のフォルダに配置し、
+#   ~/.gitconfig等のcore.hooksPathにそのフォルダを指定してください。
+#   https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath
+# ・パスワード付ZIPファイル等のように暗号化されたファイルは対象外です。
+#
+
+# NGキーワード(grepオプションのため、"\|"で区切る)
+keywords="ichiro\|yamada\|山田\|一郎"
+
+# MS Officeファイルはzip解凍して検証(zip圧縮されたXMLのため)
+unzip_exts=('xlsx' 'docx' 'pptx')
+
+# 検証を行う関数
+function validate_file() {
+    if [ $1 -ne 0 ]; then
+        echo "contains NG keyword: $2"
+        let failed++
+    fi
+}
+
+# コミット対象のファイル群を検証
+failed=0
+filepaths=$(git diff --cached --name-only)
+for filepath in ${filepaths[@]}; do
+
+    # ファイル名とその拡張子を取得
+    filename=$(basename $filepath)
+    ext="${filename##*.}"
+    
+    # 拡張子に基づいてキーワードの有無を検証
+    # (基本的にgrep検索時の該当件数(-c)が0以外は検証NG)
+    found_unzip_ext=`printf "%s\n" "${unzip_exts[@]}" | grep -Fxc $ext`
+    if [ $found_unzip_ext -ne 0 ]; then
+        validate_file `unzip -p $filepath | grep -c $keywords` $filepath
+    else
+        validate_file `grep -c $keywords $filepath` $filepath
+    fi
+done
+
+# 検証に失敗している場合はコミット中止
+if [ $failed -ne 0 ]; then
+	echo "the number of rejected: $failed"
+	exit 1
+fi
+
+#EOF
