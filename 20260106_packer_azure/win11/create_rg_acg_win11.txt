@@ -1,0 +1,16 @@
+
+az group create --name test-rg --location japaneast
+
+az sig create \
+  --resource-group test-rg --gallery-name test_gal \
+  --location japaneast
+
+az sig image-definition create \
+  --resource-group test-rg --gallery-name test_gal \
+  --gallery-image-definition test-win11 \
+  --publisher mycompany \
+  --offer windows11 \
+  --sku win11-ent \
+  --os-type Windows \
+  --os-state Generalized \
+  --hyper-v-generation V2
