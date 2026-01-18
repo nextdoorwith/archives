@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="prism.css" rel="stylesheet" />
+    <link href="custom.css" rel="stylesheet" /> <!-- 独自タイトル付加用 -->
+</head>
+
+<body data-prismjs-copy="コピー">
+    <script src="prism.js"></script>
+
+    <h1>Prismの動作確認</h1>
+
+    <h2>基本パターン</h2>
+
+    <ul>
+        <li>単純パターン
+            <div class="my-container">
+                <pre><code class="language-css">p { color: red }</code></pre>
+            </div>
+        </li>
+        <li>行番号
+            <div class="my-container">
+                <pre class="line-numbers"><code class="language-css">p { color: red }
+p { color: black }
+p { color: yellow }</code></pre>
+            </div>
+        </li>
+        <li>行ハイライト
+            <div class="my-container">
+                <pre data-line="2,4-6"><code class="language-css">p { color: red }
+p { color: black }
+p { color: yellow }
+p { color: blue }
+p { color: green }
+p { color: white }
+p { color: orange }
+p { color: peach }
+</code></pre>
+            </div>
+        </li>
+        <li>行番号＋行ハイライト
+            <div class="my-container">
+                <pre class="line-numbers" data-line="2,4-6"><code class="language-css">p { color: red }
+p { color: black }
+p { color: yellow }
+p { color: blue }
+p { color: green }
+p { color: white }
+p { color: orange }
+p { color: peach }
+</code></pre>
+            </div>
+        </li>
+        <li>python＋行番号＋行ハイライト
+            <div class="my-container">
+                <pre class="line-numbers" data-line="3-6"><code class="language-css">import math
+
+def calculate_circle_area(radius):
+    # 半円の面積を計算する
+    area = math.pi * (radius ** 2)
+    return area
+</code></pre>
+            </div>
+        </li>
+        <li>HTML ※prismだけで実現する場合、&lt;, &gt;はエスケープが必要
+            <div class="my-container">
+                <pre class="line-numbers" data-line="3-6"><code class="language-css">&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Prism.js HTML Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;/header&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+            </div>
+        </li>
+    </ul>
+
+    <h2>独自実装</h2>
+
+    <ul>
+        <li>タイトルを付与
+            <div class="my-container" data-title="example.php">
+                <pre class="line-numbers" data-line="3-6"><code class="language-css">import math
+
+def calculate_circle_area(radius):
+    # 半円の面積を計算する
+    area = math.pi * (radius ** 2)
+    return area
+</code></pre>
+            </div>
+        </li>
+
+    </ul>
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+/* 全体デザイン */
+.my-container pre {
+  font-size: 0.8em; /* 基準のフォントサイズ */
+}
+
+
+/* 独自実装のタイトル表示部のデザイン ※タイトル指定時のみ表示 */
+.my-container[data-title] {
+    position: relative;
+    padding-top: 30px; /* タイトル分の余白 */
+    margin: 2em 0;
+}
+.my-container[data-title]::before {
+    content: attr(data-title); /* data-title属性の中身を表示 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #353535; /* 背景色（ダーク系） */
+    color: #ffffff;      /* 文字色 */
+    padding: 2px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0; /* 上だけ角丸 */
+    line-height: 28px;
+    display: inline-block;
+}
+.my-container[data-title] pre {
+    margin-top: 0;
+    border-top: 3px solid #353535; /* タイトルバーとつなげる */
+    border-radius: 0 4px 4px 4px;
+}
+

@@ -1,0 +1,45 @@
+/* 全体デザイン */
+/* prismのline-numbers, line-highlight, copy-to-clipboardを使用 */
+.simsh-container pre {
+  font-size: 0.8em; /* 基準のフォントサイズ */
+}
+
+/* テーマやプラグインで打ち消されたprismスタイルの再設定 */
+/* (!importは使わず、CSSクラスの詳細度を上げることで上書きする。) */
+/* ★★★お使いのテーマやプラグインによっては不要な定義です★★★ */
+.simsh-container pre {
+  border-left: none; /* ".content pre"の値をリセット(prismで未指定) */
+}
+.simsh-container div.line-highlight {
+  /* ".content div"の値を".line-highlight"の値で上書き */
+  margin-top: 1em;
+}
+.simsh-container div.toolbar {
+  margin-top: 0; /* ".content div"の値をリセット(prismで未指定) */
+}
+
+/* 独自実装のタイトル表示部のデザイン ※タイトル指定時のみ表示 */
+.simsh-container[data-title] {
+    position: relative;
+    padding-top: 30px; /* タイトル分の余白 */
+    margin: 2em 0;
+}
+.simsh-container[data-title]::before {
+    content: attr(data-title); /* data-title属性の中身を表示 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #353535; /* 背景色（ダーク系） */
+    color: #ffffff;      /* 文字色 */
+    padding: 2px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0; /* 上だけ角丸 */
+    line-height: 28px;
+    display: inline-block;
+}
+.simsh-container[data-title] pre {
+    margin-top: 0;
+    border-top: 3px solid #353535; /* タイトルバーとつなげる */
+    border-radius: 0 4px 4px 4px;
+}
